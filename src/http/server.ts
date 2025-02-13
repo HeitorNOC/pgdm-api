@@ -34,6 +34,7 @@ import { getHistories } from './routes/historias'
 import { getCircuits } from './routes/circuits'
 import { circuitSteps } from '@/db/schema/circuitSteps'
 import { getCircuitSteps } from './routes/circuitSteps'
+import { createUser, updateUser, updateUserTeacherCode } from './routes/users'
 
 const app = new Elysia()
   .use(
@@ -84,6 +85,9 @@ const app = new Elysia()
   .use(getHistories)
   .use(getCircuits)
   .use(getCircuitSteps)
+  .use(updateUser)
+  .use(updateUserTeacherCode)
+  .use(createUser)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {
