@@ -1,7 +1,8 @@
 import { createId } from '@paralleldrive/cuid2';
-import { pgTable, text, real, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, real, timestamp  } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { circuitSteps } from './circuitSteps';
+
 
 export const circuits = pgTable('circuits', {
   id: text('id')
@@ -10,6 +11,7 @@ export const circuits = pgTable('circuits', {
   name: text('name').notNull(),
   description: text('description'),
   duration: real('duration').notNull(),
+  imageUrl: text('image_url'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });

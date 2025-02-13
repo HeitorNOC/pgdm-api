@@ -29,6 +29,11 @@ import { deliverOrder } from './routes/deliver-order'
 import { register } from './routes/register'
 import { getProfileByEmail } from './routes/get-profile-by-email'
 import { login } from './login'
+import { getSteps } from './routes/steps'
+import { getHistories } from './routes/historias'
+import { getCircuits } from './routes/circuits'
+import { circuitSteps } from '@/db/schema/circuitSteps'
+import { getCircuitSteps } from './routes/circuitSteps'
 
 const app = new Elysia()
   .use(
@@ -47,34 +52,38 @@ const app = new Elysia()
       },
     }),
   )
-  .use(authentication)
+  // .use(authentication)
   .use(signOut)
   .use(getProfile)
-  .use(getManagedRestaurant)
-  .use(registerRestaurant)
-  .use(registerCustomer)
-  .use(sendAuthenticationLink)
-  .use(authenticateFromLink)
-  .use(createOrder)
-  .use(approveOrder)
-  .use(cancelOrder)
-  .use(dispatchOrder)
-  .use(deliverOrder)
-  .use(getOrders)
-  .use(getOrderDetails)
-  .use(createEvaluation)
-  .use(getEvaluations)
-  .use(updateMenu)
-  .use(updateProfile)
-  .use(getMonthReceipt)
-  .use(getMonthOrdersAmount)
-  .use(getDayOrdersAmount)
-  .use(getMonthCanceledOrdersAmount)
-  .use(getDailyReceiptInPeriod)
-  .use(getPopularProducts)
-  .use(register)
-  .use(getProfileByEmail)
+  // .use(getManagedRestaurant)
+  // .use(registerRestaurant)
+  // .use(registerCustomer)
+  // .use(sendAuthenticationLink)
+  // .use(authenticateFromLink)
+  // .use(createOrder)
+  // .use(approveOrder)
+  // .use(cancelOrder)
+  // .use(dispatchOrder)
+  // .use(deliverOrder)
+  // .use(getOrders)
+  // .use(getOrderDetails)
+  // .use(createEvaluation)
+  // .use(getEvaluations)
+  // .use(updateMenu)
+  // .use(updateProfile)
+  // .use(getMonthReceipt)
+  // .use(getMonthOrdersAmount)
+  // .use(getDayOrdersAmount)
+  // .use(getMonthCanceledOrdersAmount)
+  // .use(getDailyReceiptInPeriod)
+  // .use(getPopularProducts)
+  // .use(register)
+  // .use(getProfileByEmail)
   .use(login)
+  .use(getSteps)
+  .use(getHistories)
+  .use(getCircuits)
+  .use(getCircuitSteps)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {

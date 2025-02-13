@@ -34,6 +34,7 @@ CREATE TABLE circuits (
     id TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     description TEXT,
+    image_url text,
     duration REAL NOT NULL,
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now()
@@ -75,14 +76,14 @@ INSERT INTO historias (id, name, image_url, description, created_at, updated_at)
     (gen_random_uuid(), 'Dom Quixote', 'https://drive.google.com/file/d/1l5NWeP1EuTRepNlBOTtkOlNPtTsQKp2n/view?usp=drive_link', 'Inspirado no romance de Miguel de Cervantes, o ballet Dom Quixote é uma celebração vibrante da cultura espanhola. Criado por Marius Petipa em 1869, a história segue as aventuras de Kitri e Basílio, um casal apaixonado que enfrenta desafios antes de conquistar sua felicidade. Com movimentos dinâmicos e exigência técnica alta, é um dos ballets mais energéticos e vibrantes.', now(), now());
 
 --Circuito de alongamento
-INSERT INTO circuits (id, name, description, duration, created_at, updated_at) VALUES
-    (gen_random_uuid(), 'Circuito de Alongamento para Ballet', 'Este circuito melhora a flexibilidade e previne lesões, essencial para bailarinos.', 10, now(), now());
+INSERT INTO circuits (id, name, description, image_url, duration, created_at, updated_at) VALUES
+    (gen_random_uuid(), 'Circuito de Alongamento para Ballet', 'Este circuito melhora a flexibilidade e previne lesões, essencial para bailarinos.','https://drive.google.com/file/d/1jOga3ipaFwKd7uawpjHmXTYNAmFYxqKn/view?usp=drive_link', 10, now(), now());
 
 INSERT INTO circuit_steps (id, circuit_id, name, "order", duration, rest_time, image_url, created_at, updated_at) VALUES
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Alongamento de Costas e Posterior', 1, 60, 30, 'https://example.com/stretch1.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Flexão de Tronco para Frente', 2, 60, 30, 'https://example.com/stretch2.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Afundo com Alongamento de Quadríceps', 3, 60, 30, 'https://example.com/stretch3.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Elevação de Pernas na Parede', 4, 60, 30, 'https://example.com/stretch4.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Prancha com Alongamento de Pernas', 5, 60, 30, 'https://example.com/stretch5.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Cachorrinho Olhando para Baixo', 6, 60, 30, 'https://example.com/stretch6.jpg', now(), now()),
-(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Alongamento de Perna Estendida Sentado', 7, 60, 30, 'https://example.com/stretch7.jpg', now(), now());
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Alongamento de Costas e Posterior', 1, 60, 30, 'https://drive.google.com/file/d/1PLHmZuGFFO_FiD7Nhm2G-lomX9mB4IR-/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Flexão de Tronco para Frente', 2, 60, 30, 'https://drive.google.com/file/d/1VR1DXFUOS2AqZMtyEVGeIEvfVWMlAa6A/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Afundo com Alongamento de Quadríceps', 3, 60, 30, 'https://drive.google.com/file/d/1AhzZKbdCWkm0JNCvGmqSShgwrGvTDvk4/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Elevação de Pernas na Parede', 4, 60, 30, 'https://drive.google.com/file/d/136oznwtEB4vbkiXyu3aHXsvZp3jMHKGp/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Prancha com Alongamento de Pernas', 5, 60, 30, 'https://drive.google.com/file/d/1nUYAdlv1KFKWGOE-gOCIeh_01gkQpQFt/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Cachorrinho Olhando para Baixo', 6, 60, 30, 'https://drive.google.com/file/d/1dNL9376hRdNABFxWKIE4NqGoyShATBqx/view?usp=drive_link', now(), now()),
+(gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Alongamento de Perna Estendida Sentado', 7, 60, 30, 'https://drive.google.com/file/d/12UYVgBCYAZ5-m9mnkfqkAmGUCuiWWvCC/view?usp=drive_link', now(), now());

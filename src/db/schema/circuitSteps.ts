@@ -13,6 +13,8 @@ export const circuitSteps = pgTable('circuit_steps', {
     .notNull(),
   
   order: integer('order').notNull(),
+  name: text('name'),
+  imageUrl: text('image_url'),
   duration: real('duration').notNull(),
   restTime: real('rest_time').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
