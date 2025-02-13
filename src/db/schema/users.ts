@@ -8,4 +8,5 @@ export const users = pgTable('users', {
     username: text('username').notNull().unique(),
     passwordHash: text('password_hash').notNull(),
     teacherCode: text('teacher_code')
+    
 });
