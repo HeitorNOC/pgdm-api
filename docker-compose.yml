@@ -1,16 +1,13 @@
-version: '3.7'
-
+version: "3"
 services:
-  postgres:
-    image: bitnami/postgresql:latest
+  pgdm-api-rest:
+    image: pgdm-api
+    env_file: 
+      - build/docker/env.env
+    build:
+      context: .
+      dockerfile: build/docker/Dockerfile
+      args:
+        - SERVER=rest
     ports:
-      - '5432:5432'
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=pgdm 
-    volumes:
-      - postgres_data:/bitnami/postgresql
-
-volumes:
-  postgres_data:
+      - "3333:3333"
