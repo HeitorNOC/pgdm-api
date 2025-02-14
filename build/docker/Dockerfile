@@ -4,7 +4,7 @@ WORKDIR /pgdm-api
 COPY . .
 
 RUN npm install --legacy-peer-deps
-RUN bun install
+
 EXPOSE 3333
 
-CMD ["bun", "run", "dev"]
+CMD npx bun run dev
