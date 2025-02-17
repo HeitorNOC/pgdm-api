@@ -87,3 +87,13 @@ INSERT INTO circuit_steps (id, circuit_id, name, "order", duration, rest_time, i
 (gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Prancha com Alongamento de Pernas', 5, 60, 30, 'https://drive.google.com/file/d/1nUYAdlv1KFKWGOE-gOCIeh_01gkQpQFt/view?usp=drive_link', now(), now()),
 (gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Cachorrinho Olhando para Baixo', 6, 60, 30, 'https://drive.google.com/file/d/1dNL9376hRdNABFxWKIE4NqGoyShATBqx/view?usp=drive_link', now(), now()),
 (gen_random_uuid(), (SELECT id FROM circuits WHERE name = 'Circuito de Alongamento para Ballet'), 'Alongamento de Perna Estendida Sentado', 7, 60, 30, 'https://drive.google.com/file/d/12UYVgBCYAZ5-m9mnkfqkAmGUCuiWWvCC/view?usp=drive_link', now(), now());
+
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    sender_id VARCHAR(50) NOT NULL,
+    receiver_id VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    read BOOLEAN DEFAULT FALSE
+);

@@ -1,7 +1,7 @@
 import { Elysia, t } from 'elysia'
 import { db } from '@/db/connection'
 import { users } from '@/db/schema'
-import { eq, and } from 'drizzle-orm'
+import { eq, and, not } from 'drizzle-orm'
 
 export const updateUser = new Elysia().patch(
   '/users/update',
@@ -141,13 +141,19 @@ export const createUser = new Elysia().post(
 export const getUserByTeacherCode = new Elysia().post(
   '/listUsersByTeacherCode',
   async ({ body, set }) => {
+    const role = 'professor'
     try {
       const { teacherCode } = body
 
       const response = await db
         .select()
         .from(users)
-        .where(eq(users.teacherCode, teacherCode))
+        .where(
+          and(
+            eq(users.teacherCode, teacherCode), 
+            not(eq(users.userType, role)) 
+          )
+        );
 
       return response
     } catch (err) {
