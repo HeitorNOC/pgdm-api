@@ -27,7 +27,7 @@ export const login = new Elysia()
             throw new UnauthorizedError();
         }
 
-        const jwtPayload = { sub: user.id, email: user.email, userType: user.userType };
+        const jwtPayload = { sub: user.id, email: user.email, userType: user.userType, teacherCode: user.teacherCode };
         const token = sign(jwtPayload, env.JWT_SECRET_KEY, { expiresIn: '1h' });
         request.set.status = 200;
         return { token }; 
