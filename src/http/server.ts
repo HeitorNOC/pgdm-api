@@ -34,26 +34,27 @@ import { getHistories } from './routes/historias'
 import { getCircuits } from './routes/circuits'
 import { circuitSteps } from '@/db/schema/circuitSteps'
 import { getCircuitSteps } from './routes/circuitSteps'
-import { createUser, updateUser, updateUserTeacherCode } from './routes/users'
+import { createUser, getUser, updateUser, updateUserTeacherCode } from './routes/users'
 
 const app = new Elysia()
   .use(
     cors({
       credentials: true,
-      allowedHeaders: ['content-type'],
+      allowedHeaders: [
+        'Authorization',
+        'Content-Type',
+        'Accept',
+        'X-Requested-With',
+        'Origin'
+      ],
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-      origin: (request): boolean => {
-        const origin = request.headers.get('origin')
-
-        if (!origin) {
-          return false
-        }
-
-        return true
+      origin: (request: any) => {
+        const origin = request.headers.get("origin");
+        return origin ? origin : "*"; // Permite qualquer origem
       },
     }),
   )
-  // .use(authentication)
+  //.use(authentication)
   .use(signOut)
   .use(getProfile)
   // .use(getManagedRestaurant)
@@ -88,6 +89,7 @@ const app = new Elysia()
   .use(updateUser)
   .use(updateUserTeacherCode)
   .use(createUser)
+  .use(getUser)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {

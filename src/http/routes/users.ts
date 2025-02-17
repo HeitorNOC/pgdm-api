@@ -69,6 +69,36 @@ export const updateUserTeacherCode = new Elysia().patch(
   },
 )
 
+export const getUser = new Elysia().post(
+  '/user',
+  async ({ body, set }) => {
+    try {
+      const { id } = body
+
+      const updatedUser = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, id))
+
+      if (updatedUser.length === 0) {
+        set.status = 404
+        return { error: 'Usuário não encontrado' }
+      }
+
+      return updatedUser[0]
+    } catch (err) {
+      console.log(err)
+      set.status = 500
+      return { error: 'Erro ao atualizar teacherCode' }
+    }
+  },
+  {
+    body: t.Object({
+      id: t.Numeric(),
+    }),
+  },
+)
+
 export const createUser = new Elysia().post(
   '/users',
   async ({ body, set }) => {
