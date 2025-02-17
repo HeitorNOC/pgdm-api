@@ -7,6 +7,9 @@ import { UnauthorizedError } from './routes/errors/unauthorized-error';
 import { db } from '@/db/connection';
 import { eq } from 'drizzle-orm';
 import { users } from '@/db/schema';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 async function getUserByEmail(email: string) {
     return await db.query.users.findFirst({
