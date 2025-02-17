@@ -30,7 +30,8 @@ export const login = new Elysia()
 
         if (!user) {
             console.log("❌ Erro: Usuário não encontrado");
-            throw new UnauthorizedError();
+            throw new Error("Usuário não autorizado");
+
         }
 
         console.log("🔍 Verificando senha...");
@@ -39,7 +40,8 @@ export const login = new Elysia()
 
         if (!isPasswordValid) {
             console.log("❌ Erro: Senha incorreta");
-            throw new UnauthorizedError();
+            throw new Error("Usuário não autorizado");
+
         }
 
         console.log("🔐 Gerando token JWT...");
@@ -51,7 +53,7 @@ export const login = new Elysia()
         request.set.status = 200;
         return { token };
     })
-    .error({ UNAUTHORIZED: UnauthorizedError })
+    .error({ UNAUTHORIZED: Error })
     .onError(({ error, set }) => {
         console.log("🚨 Erro inesperado:", error.message);
         set.status = 401;
