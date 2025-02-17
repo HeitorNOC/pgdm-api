@@ -51,9 +51,9 @@ export const login = new Elysia()
 
         try {
             console.log("📦 Payload JWT:", jwtPayload);
-            console.log("🔑 Chave Secreta JWT:", env.JWT_SECRET_KEY);
+            const secretKey = String(env.JWT_SECRET_KEY);
 
-            const token = sign(jwtPayload, (env.JWT_SECRET_KEY as string), { expiresIn: '1h' });
+            const token = sign(jwtPayload, secretKey, { expiresIn: '1h' });
 
             console.log("✅ Token gerado com sucesso:", token);
 
