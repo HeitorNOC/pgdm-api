@@ -9,6 +9,7 @@ import { users } from '@/db/schema';
 import dotenv from 'dotenv';
 import jwt from "jsonwebtoken";
 import { Buffer } from "buffer";
+import { createSecretKey } from 'crypto';
 
 dotenv.config()
 
@@ -54,8 +55,11 @@ export const login = new Elysia()
         try {
             console.log("📦 Payload JWT:", jwtPayload);
 
-            const secret = Buffer.from(String(env.JWT_SECRET_KEY), "utf-8");
-            const token = jwt.sign(jwtPayload, secret, { algorithm: "HS256", expiresIn: "1h" });
+            const secretKey = createSecretKey(new TextEncoder().encode(env.JWT_SECRET_KEY));
+
+            const token = jwt.sign(jwtPayload, secretKey, { algorithm: "HS256", expiresIn: "1h" });
+
+            console.log("✅ Token gerado com sucesso:", token);
 
             console.log("✅ Token gerado com sucesso:", token);
 
