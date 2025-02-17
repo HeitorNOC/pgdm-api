@@ -2,6 +2,7 @@
 import Elysia, { Static, t } from 'elysia';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { env } from '@/env';
 import { db } from '@/db/connection';
 import { eq } from 'drizzle-orm';
@@ -52,6 +53,9 @@ export const login = new Elysia()
         try {
             console.log("📦 Payload JWT:", jwtPayload);
             const secretKey = String(env.JWT_SECRET_KEY);
+
+            console.log("🔑 Valor da chave secreta:", secretKey);
+            console.log("🛠️ Tipo da chave secreta:", typeof secretKey);
 
             const token = sign(jwtPayload, secretKey, { expiresIn: '1h' });
 
