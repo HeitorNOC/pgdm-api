@@ -1,7 +1,7 @@
 import { Elysia, t } from 'elysia'
 import { db } from '@/db/connection'
 import { users } from '@/db/schema'
-import { eq } from 'drizzle-orm'
+import { eq, and } from 'drizzle-orm'
 
 export const updateUser = new Elysia().patch(
   '/users/update',
@@ -89,7 +89,7 @@ export const getUser = new Elysia().post(
     } catch (err) {
       console.log(err)
       set.status = 500
-      return { error: 'Erro ao atualizar teacherCode' }
+      return { error: 'Erro ao buscar usuário' }
     }
   },
   {
@@ -134,6 +134,57 @@ export const createUser = new Elysia().post(
       passwordHash: t.String(),
       teacherCode: t.Optional(t.String()),
       userType: t.String(),
+    }),
+  },
+)
+
+export const getUserByTeacherCode = new Elysia().post(
+  '/listUsersByTeacherCode',
+  async ({ body, set }) => {
+    try {
+      const { teacherCode } = body
+
+      const response = await db
+        .select()
+        .from(users)
+        .where(eq(users.teacherCode, teacherCode))
+
+      return response
+    } catch (err) {
+      console.log(err)
+      set.status = 500
+      return { error: 'Erro ao atualizar teacherCode' }
+    }
+  },
+  {
+    body: t.Object({
+      teacherCode: t.String(),
+    }),
+  },
+)
+
+export const getStudentTeacher = new Elysia().post(
+  '/listTeacherByTeacherCode',
+  async ({ body, set }) => {
+    const role = 'professor'
+    try {
+      const { teacherCode } = body
+
+      const response = await db
+      .select()
+      .from(users)
+      .where(and(eq(users.teacherCode, teacherCode), eq(users.userType, role)))
+      
+      return response
+    } catch (err) {
+      console.log(err)
+      set.status = 500
+      return { error: 'Erro ao atualizar teacherCode' }
+    }
+  },
+  {
+    body: t.Object({
+      teacherCode: t.String(),
     }),
   },
 )
