@@ -2,12 +2,13 @@
 import Elysia, { Static, t } from 'elysia';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import jwt from 'jsonwebtoken';
 import { env } from '@/env';
 import { db } from '@/db/connection';
 import { eq } from 'drizzle-orm';
 import { users } from '@/db/schema';
 import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
+import { Buffer } from "buffer";
 
 dotenv.config()
 
@@ -52,12 +53,9 @@ export const login = new Elysia()
 
         try {
             console.log("📦 Payload JWT:", jwtPayload);
-            const secretKey = String(env.JWT_SECRET_KEY);
 
-            console.log("🔑 Valor da chave secreta:", secretKey);
-            console.log("🛠️ Tipo da chave secreta:", typeof secretKey);
-
-            const token = sign(jwtPayload, secretKey, { expiresIn: '1h' });
+            const secret = Buffer.from(String(env.JWT_SECRET_KEY), "utf-8");
+            const token = jwt.sign(jwtPayload, secret, { algorithm: "HS256", expiresIn: "1h" });
 
             console.log("✅ Token gerado com sucesso:", token);
 
