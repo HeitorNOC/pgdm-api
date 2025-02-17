@@ -3,7 +3,6 @@ import Elysia, { Static, t } from 'elysia';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { env } from '@/env';
-import { UnauthorizedError } from './routes/errors/unauthorized-error';
 import { db } from '@/db/connection';
 import { eq } from 'drizzle-orm';
 import { users } from '@/db/schema';
@@ -49,12 +48,21 @@ export const login = new Elysia()
 
         console.log("🔐 Gerando token JWT...");
         const jwtPayload = { sub: user.id, email: user.email, userType: user.userType, teacherCode: user.teacherCode };
-        const token = sign(jwtPayload, env.JWT_SECRET_KEY, { expiresIn: '1h' });
 
-        console.log("✅ Token gerado com sucesso:", token);
+        try {
+            console.log("📦 Payload JWT:", jwtPayload);
+            console.log("🔑 Chave Secreta JWT:", env.JWT_SECRET_KEY);
 
-        request.set.status = 200;
-        return { token };
+            const token = sign(jwtPayload, env.JWT_SECRET_KEY, { expiresIn: '1h' });
+
+            console.log("✅ Token gerado com sucesso:", token);
+
+            request.set.status = 200;
+            return { token };
+        } catch (error) {
+            console.error("❌ Erro ao gerar token JWT:", error);
+            throw new Error("Erro interno ao gerar o token");
+        }
     })
     .error({ UNAUTHORIZED: Error })
     .onError(({ error, set }) => {
