@@ -33,10 +33,16 @@ import { getSteps } from './routes/steps'
 import { getHistories } from './routes/historias'
 import { getCircuits } from './routes/circuits'
 import { circuitSteps } from '@/db/schema/circuitSteps'
+import chalk from 'chalk'
 import { getCircuitSteps } from './routes/circuitSteps'
 import { createUser, getStudentTeacher, getUser, getUserByTeacherCode, updateUser, updateUserTeacherCode } from './routes/users'
 
 const app = new Elysia()
+  .onRequest(({ request }) => {
+    const method = request.method
+    const url = new URL(request.url)
+    console.log(`📌 Rota chamada: ${chalk.green(method)} ${url.pathname}`)
+  })
   .use(
     cors({
       credentials: true,
